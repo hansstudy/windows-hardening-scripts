@@ -2,7 +2,7 @@
 
 Standalone PowerShell scripts that apply published security hardening baselines to Windows 10, Windows 11, Windows Server 2019, Windows Server 2022, and Windows Server 2025. Each script is a single `.ps1` file. No modules, no shared dependencies, no installer.
 
-By **Hans Study, CISSP**. Independent network and security expert, consultant, and advisor based in the Greater Toronto Area, Ontario, Canada. Government, law enforcement, defense, airports, healthcare, and enterprise clients across Canada and the United States.
+By **Hans Study, CISSP**. Independent network and security consultant and advisor based in Ontario, Canada. Government, law enforcement, defense, airports, healthcare, and enterprise clients across Canada and the United States.
 
 [hans.study](https://hans.study) | [contact@hans.study](mailto:contact@hans.study)
 LinkedIn: [hans-study](https://linkedin.com/in/hans-study) | Instagram: [@StudyByt3s](https://instagram.com/studybyt3s) | X: [@StudyByt3s](https://x.com/studybyt3s) | YouTube: [@StudyByt3s](https://youtube.com/@studybyt3s) | GitHub: [hansstudy](https://github.com/hansstudy)
@@ -67,6 +67,8 @@ Eight standalone PowerShell hardening scripts. Each script:
 - Prompts for restart when controls require one.
 - Runs without modules, shared files, or external dependencies. One `.ps1` per use case.
 
+Prefer a wizard? The [Study Windows Configuration Utility](https://hans.study/tools/workstation-config/) on hans.study builds a hardening script for a single workstation or a domain GPO from the same baselines.
+
 Commands and registry keys are drawn from the cited official sources. Re-check the current STIG, CIS, or ITSP text before you treat a run as assessment evidence.
 
 ---
@@ -122,7 +124,7 @@ Defender exclusions are added for G64, G64x, MDF, LDF, and NDF file extensions a
 
 Generic Windows hardening baselines break Genetec deployments in predictable ways. Controlled Folder Access blocks video archive writes and causes recording gaps. Aggressive Defender scanning of G64 files on the Archiver volume creates I/O contention that shows up as dropped frames and buffering delays in Security Desk. Hibernation on a server running the Genetec Directory causes all connected clients to lose their session. Applying generic guidance without understanding what Genetec does at the OS level produces an integrator who spends hours troubleshooting symptoms that trace directly to the hardening script.
 
-This script is built from direct deployment experience across government, law enforcement, airports, and critical infrastructure sites. The goal is a workstation that passes a security audit and keeps cameras recording.
+This script is built from direct deployment experience across government, law enforcement, airports, and critical infrastructure sites. The goal is a workstation that passes a security audit and keeps cameras recording. The server side of the same problem is covered in [VMS server hardening](https://hans.study/vms-server-hardening/) on hans.study.
 
 **Genetec Security Center default communication ports added to the firewall:**
 
@@ -134,7 +136,7 @@ This script is built from direct deployment experience across government, law en
 | 555 | TCP | Genetec Archiver proprietary stream protocol |
 | 8888 | TCP | Genetec Unit Assistant. Camera unit management and firmware updates |
 
-If your deployment uses custom port assignments configured in Config Tool, edit the `$genetecRules` array in the script before running.
+If your deployment uses custom port assignments configured in Config Tool, edit the `$genetecRules` array in the script before running. To prove the paths are open from a client or a remote site after a firewall change, [PortProof](https://hans.study/tools/portproof/) checks a declared list of ports and returns a pass/fail matrix. A [firewall review](https://hans.study/firewall-review/) covers the rule base itself.
 
 **Windows Defender exclusions added by the script:**
 
@@ -369,7 +371,7 @@ Hans Study, CISSP. See [About the Author](#about-the-author) below.
 
 ## About the Author
 
-**Hans Study, CISSP** is an independent network and security expert, consultant, and advisor based in the Greater Toronto Area, Ontario, Canada. He holds the Certified Information Systems Security Professional (CISSP) credential from (ISC)².
+**Hans Study, CISSP** is an independent network and security consultant and advisor based in Ontario, Canada. He holds the Certified Information Systems Security Professional (CISSP) credential from (ISC)².
 
 Clients include government, law enforcement, defense, airports, healthcare, and enterprise organizations across Canada and the United States.
 
