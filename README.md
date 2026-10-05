@@ -7,7 +7,7 @@ By **Hans Study, CISSP**. Independent network and security expert, consultant, a
 [hans.study](https://hans.study) | [contact@hans.study](mailto:contact@hans.study)
 LinkedIn: [hans-study](https://linkedin.com/in/hans-study) | Instagram: [@StudyByt3s](https://instagram.com/studybyt3s) | X: [@StudyByt3s](https://x.com/studybyt3s) | YouTube: [@StudyByt3s](https://youtube.com/@studybyt3s) | GitHub: [hansstudy](https://github.com/hansstudy)
 
-Last updated: 2026-09-13
+Last updated: 2026-10-05
 
 ---
 
@@ -49,7 +49,7 @@ Pick the script that matches your use case. Each row links to the detailed secti
 | Legacy environment, compatibility-sensitive deployment, or a tested low-risk first pass | [Minimum-Viable-Security.ps1](#minimum-viable-securityps1) | Curated subset of CCCS, NSA/CISA, DISA, and CIS |
 | SOC analyst, threat hunter, DFIR practitioner, or incident responder workstation | [Security-Analyst-Workstation.ps1](#security-analyst-workstationps1) | DISA STIG with analyst-specific carve-outs |
 | Guard terminal, reception kiosk, lobby access control console, or any single-purpose machine | [Kiosk-ThinClient-Lockdown.ps1](#kiosk-thinclient-lockdownps1) | DISA STIG plus CIS Level 2 lockdown |
-| US DoD CMMC Level 2 (CUI) or Canadian CPCSC ITSP.10.171 (SI) compliance | [CMMC-CPCSC-ITSP10171.ps1](#cmmc-cpcsc-itsp10171ps1) | NIST SP 800-171 Rev 2 (CMMC) and Rev 3 (CPCSC) |
+| US DoD CMMC Level 2 (CUI) or Canadian CPCSC ITSP.10.171 (SI) readiness | [CMMC-CPCSC-ITSP10171.ps1](#cmmc-cpcsc-itsp10171ps1) | NIST SP 800-171 Rev 2 (CMMC) and Rev 3 (CPCSC) |
 
 ---
 
@@ -67,7 +67,7 @@ Eight standalone PowerShell hardening scripts. Each script:
 - Prompts for restart when controls require one.
 - Runs without modules, shared files, or external dependencies. One `.ps1` per use case.
 
-Every command and registry key has been verified against the official source before inclusion.
+Commands and registry keys are drawn from the cited official sources. Re-check the current STIG, CIS, or ITSP text before you treat a run as assessment evidence.
 
 ---
 
@@ -80,7 +80,7 @@ Every command and registry key has been verified against the official source bef
 | NSA/CISA Cybersecurity Information Sheets | US National Security Agency and Cybersecurity and Infrastructure Security Agency | [media.defense.gov](https://media.defense.gov) |
 | NSA/CISA Keeping PowerShell Security Measures (June 2022) | NSA / CISA | [media.defense.gov](https://media.defense.gov) |
 | ITSP.70.012 Hardening Microsoft Windows 10 Enterprise | Communications Security Establishment / Canadian Centre for Cyber Security | [cyber.gc.ca](https://cyber.gc.ca) |
-| CPCSC ITSP.10.171 Protecting Specified Information | Canadian Centre for Cyber Security | [cyber.gc.ca](https://cyber.gc.ca) |
+| CPCSC / ITSP.10.171 Protecting Specified Information | PSPC (program); Cyber Centre (ITSP.10.171 standard) | [canada.ca CPCSC](https://www.canada.ca/en/public-services-procurement/services/industrial-security/security-requirements-contracting/cyber-security-certification-defence-suppliers-canada/program-overview.html) · [cyber.gc.ca](https://cyber.gc.ca) |
 | CMMC 2.0 (NIST SP 800-171 Rev 2) | US Department of Defense | [dodcio.defense.gov/cmmc](https://dodcio.defense.gov/cmmc) |
 | Genetec Security Center Hardening Guide | Genetec | [publications.genetec.com](https://publications.genetec.com) |
 
@@ -227,23 +227,25 @@ Without the two parameters the script hardens the machine but leaves Explorer as
 
 ### CMMC-CPCSC-ITSP10171.ps1
 
-**Use when:** Your organization handles US DoD Controlled Unclassified Information (CUI) under CMMC, or Canadian government Specified Information (SI) under CPCSC.
+**Use when:** Your organization handles US DoD Controlled Unclassified Information (CUI) under CMMC, or Canadian Specified Information (SI) under the Canadian Program for Cyber Security Certification (CPCSC).
 
-Controls are cited with both the CMMC 2.0 practice ID (for example, `AC.L1-3.1.1`) and the CPCSC/ITSP.10.171 equivalent (for example, `CPCSC A.03.01.01`). Controls required at Level 1 are marked `[LEVEL 1]`. One script serves both programs.
+Controls are cited with both the CMMC 2.0 practice ID (for example, `AC.L1-3.1.1`) and the ITSP.10.171 identifier (for example, `03.01.01`). Controls required at Level 1 are marked `[LEVEL 1]`. One script covers much of both programs' technical OS surface.
 
-**Timelines:**
+**Program status (verify against the living hub before you attest):**
 
-| Program | Level | Requirement | When |
+| Program | Level | Requirement | Status |
 |---|---|---|---|
-| CPCSC | Level 1 | 13 controls, self-assessment | Summer 2026 |
-| CPCSC | Level 2 | 98 controls, third-party assessment | Spring 2027 |
-| CMMC | Level 2 | 110 practices, third-party assessed | Active now for US DoD contracts with CUI |
+| CPCSC | Level 1 | 13 requirements, annual self-assessment through PSPC's tool; result in CanadaBuys | Live (opened April 1, 2026; in select contracts since summer 2026) |
+| CPCSC | Level 2 | 98 requirements, assessed by SCC-accredited certification bodies | Planned for spring 2027 |
+| CMMC | Level 2 | 110 practices, C3PAO-assessed | Active now for US DoD contracts with CUI |
 
-CMMC uses NIST SP 800-171 Rev 2 (110 controls). CPCSC uses Rev 3 (97 controls). The technical requirements are functionally identical. The terminology differs (CUI under CMMC, Specified Information under CPCSC), as does the governing authority, but a single hardened workstation satisfies both.
+CMMC Level 2 uses NIST SP 800-171 Rev 2 (110 controls). CPCSC uses ITSP.10.171, which adapts NIST SP 800-171 Rev 3: 98 requirements (97 from Rev 3 plus Canada's `03.14.09`). The technical requirements overlap heavily, so one hardened build covers much of both, but Rev 2 and Rev 3 differ and CPCSC Level 1 requires MFA where CMMC Level 1 does not. Check each requirement. CPCSC is run by Public Services and Procurement Canada (PSPC).
 
-This script covers technical OS controls: UAC, firewall, audit logging, encryption, malware protection, credential protection, FIPS mode, BitLocker, and BitLocker To Go for removable drives. It does not cover written policies, incident response plans, risk assessments, or key management procedures. Those are organizational controls. The script prints a full checklist of required documentation at the end.
+Dated program facts live in [hansstudy/CPCSC](https://github.com/hansstudy/CPCSC) and [hans.study/cpcsc](https://hans.study/cpcsc/). For a read-only Windows audit against ITSP.10.171 (no changes applied), use the scripts in that hub. This script **applies** baselines; the hub **audits**.
 
-The log file is technical implementation evidence for your System Security Plan (SSP). For formal assessment, engage a C3PAO (CMMC) or an accredited 3PAO through the Standards Council of Canada (CPCSC).
+This script covers technical OS controls: UAC, firewall, audit logging, encryption, malware protection, credential protection, FIPS mode, BitLocker, and BitLocker To Go for removable drives. It does not cover written policies, incident response plans, risk assessments, or key management procedures. Those are organizational controls. The script prints a full checklist of required documentation at the end. Running it supports readiness work; it is not a CPCSC or CMMC attestation.
+
+The log file is technical implementation evidence for your System Security Plan (SSP). For formal assessment, engage a C3PAO (CMMC) or a certification body accredited by the Standards Council of Canada (CPCSC Level 2).
 
 ---
 
@@ -293,7 +295,7 @@ A few behaviors that look wrong but are correct:
 
 **NetBIOS disable.** Uses `Win32_NetworkAdapterConfiguration.SetTcpipNetbios(2)` via WMI. Value 2 = disable. There is no native PowerShell cmdlet for this.
 
-**FIPS mode (CMMC/CPCSC script).** Required by CMMC SC.L2-3.13.11 and CPCSC A.03.13.11. Some applications using non-FIPS cryptographic APIs will fail after this is enabled. Test before production deployment.
+**FIPS mode (CMMC/CPCSC script).** Required by CMMC SC.L2-3.13.11 and ITSP.10.171 `03.13.11`. Some applications using non-FIPS cryptographic APIs will fail after this is enabled. Test before production deployment.
 
 **BitLocker To Go (CMMC/CPCSC script).** `RDVDenyWriteAccess = 1` blocks write access to removable drives until they are encrypted. Users see a prompt to encrypt the USB drive before they can write to it.
 
@@ -352,7 +354,7 @@ DISA STIG is the US Department of Defense hardening standard, mandatory for syst
 Cybersecurity Maturity Model Certification. A US Department of Defense compliance program for any organization in the Defense Industrial Base that handles Controlled Unclassified Information (CUI). Level 2 (110 practices, NIST SP 800-171 Rev 2) is the level most contractors need.
 
 **What is CPCSC and who needs it?**
-Canadian Programs for Cyber Security Certification. The Canadian equivalent of CMMC. Required for federal government contractors handling Specified Information (SI). Level 1 (13 controls, self-assessment) takes effect summer 2026. Level 2 (98 controls, third-party assessed) takes effect spring 2027.
+Canadian Program for Cyber Security Certification. Run by Public Services and Procurement Canada (PSPC). Required on Government of Canada defense contracts that name a CPCSC level for suppliers handling Specified Information (SI). Level 1 (13 requirements, annual self-assessment through PSPC's tool, result in CanadaBuys) is live: opened April 1, 2026 and in select contracts since summer 2026. Level 2 (98 requirements, assessed by SCC-accredited certification bodies) is planned for spring 2027. Full, dated program status: [hansstudy/CPCSC](https://github.com/hansstudy/CPCSC) and [hans.study/cpcsc](https://hans.study/cpcsc/).
 
 **Does the Genetec script support Security Center version 5.x?**
 The script is tested against Genetec Security Center 6.x. Version 5.x deployments share most of the same hardening principles but may use different default ports and service names. Read the inline comments before running on 5.x.
