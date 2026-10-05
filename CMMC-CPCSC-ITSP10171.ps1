@@ -552,7 +552,7 @@ Write-Host "    [OK] CM.L2-3.4.6/7 | CPCSC 03.04.06/07 -- Consumer apps removed"
 # ================================================================================
 # DOCUMENTATION REQUIRED FOR ASSESSMENT
 # Controls in this section cannot be implemented via script.
-# Your C3PAO (CMMC) or 3PAO (CPCSC) will require evidence of these.
+# Your C3PAO (CMMC) or SCC-accredited certification body (CPCSC) will require evidence of these.
 # ================================================================================
 Write-TSGSection "DOCUMENTATION REQUIRED FOR ASSESSMENT" "Organizational controls not implementable via script"
 
